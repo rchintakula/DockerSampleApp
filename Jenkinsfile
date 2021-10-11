@@ -14,7 +14,7 @@ pipeline {
   stage('Publish image to Docker Hub') {
           
             steps {
-        withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) {
+        withDockerRegistry([ credentialsId: "rchintakula", url: "" ]) {
           sh  'docker push rchintakula/nginxtest:latest'
           sh  'docker push rchintakula/nginxtest:$BUILD_NUMBER' 
         }
@@ -29,12 +29,3 @@ pipeline {
  
             }
         }
- stage('Run Docker container on remote hosts') {
-             
-            steps {
-                sh "docker -H ssh://jenkins@172.31.28.25 run -d -p 4001:80 rchintakula/nginxtest"
- 
-            }
-        }
-    }
-}
